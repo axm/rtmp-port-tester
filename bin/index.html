@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Port Test</title>
+	<meta name="generator" content="TextMate http://macromates.com/">
+	<meta name="author" content="anrim">
+	<!-- Date: 2011-07-11 -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
+	<script type="text/javascript">
+		/*
+		 * jQuery Plugin: externalInterface
+		 * Version 1.0
+		 *
+		 * Copyright (c) 2010 David Comeau (http://www.davecomeau.net)
+		 * Licensed jointly under the GPL and MIT licenses.
+		 *
+		 */
+
+		(function($)
+		{
+		    $.fn.externalInterface = function(args)
+		    {
+		        this.each(function()
+		        {
+		            if(typeof(args.method) != 'undefined')
+		            {
+		                try
+		                {
+		                    if(typeof(args.args) != 'undefined')
+		                    {
+		                        var data = this[args.method](args.args);
+		                    }
+		                    else
+		                    {
+		                        var data = this[args.method]();
+		                    }
+
+		                    if(typeof(args.success) != 'undefined')
+		                    {
+		                        args.success(data);
+		                    }
+		                }
+		                catch(error)
+		                {
+		                    if(typeof(args.error) != 'undefined')
+		                    {
+		                        args.error(error);
+		                    }
+		                }
+		            }
+		        });
+
+		        return this;
+		    };
+		})(jQuery);
+	</script>
+	<script type="text/javascript" charset="utf-8">
+		$(document).ready(function(){
+			var options = {
+				server: "fl-tayf.axisto.co.uk",
+				app: "vod"
+			};
+			
+			swfobject.embedSWF('porttest.swf', 'porttest', '550', '200', '8.0.0', '', options);
+		});
+		
+		function portTest(){
+			$('#porttest').externalInterface({
+				method:'run',
+				args:'',
+				success: function(response){
+					//alert('flash says: ' + response);
+				},
+				error: function(error){
+					alert('error: ' + error);
+				}
+			});
+		}
+		
+		function flashReady(){
+			portTest();
+		}
+	</script>
+</head>
+<body>
+	<div id="porttest">Port Tester</div>
+</body>
+</html>
