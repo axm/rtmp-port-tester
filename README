@@ -1,0 +1,6 @@
+Checks if client can connect to rtmp and rtmpt (tunneling) on ports 80, 445 & 1935.
+
+Run:
+node server.js
+
+then open http://localhost:8001/index.html
