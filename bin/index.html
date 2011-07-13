@@ -3,54 +3,63 @@
 
 <html lang="en">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>Port Test</title>
-	<meta name="generator" content="TextMate http://macromates.com/">
-	<meta name="author" content="anrim">
-	<!-- Date: 2011-07-11 -->
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
-	<script type="text/javascript" charset="utf-8">
-		var rtmpPortTest = (function() {
-		    var options;
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-		    return {
-		        run: function(el, options, fn) {
-		            options = options || {};
-					
-					if(typeof(swfobject) == undefined)
-						throw "SWFObject lib is required!";
-					
-					swfobject.embedSWF('porttest.swf', el, '550', '200', '8.0.0', '', options);
-					
-					if(fn && options && options.callback)
-					{
-						window[options.callback] = function(data){
-							if(data == null){
-								fn("Can't connect to rtmp server.", null);
-							}
-							else{
-								data = data.split(",");
-								fn(null, {protocol: data[0], port: data[1]});
-							}
-						};
-					}
-		        }
-		    }
-		})();
-		
-		$(document).ready(function(){
-			rtmpPortTest.run("porttest", {server: "cp67126.edgefcs.net", app: "ondemand", callback: "portTestDone"}, function(err, obj){
-				if(err)
-					alert(err);
-				else{
-					alert("Success - protocol: "+obj.protocol+" port: "+obj.port);
-				}
-			});
-		});
-	</script>
+  <title>Port Test</title>
+
+  <meta name="generator" content="TextMate http://macromates.com/">
+  <meta name="author" content="anrim">
+  <!-- Date: 2011-07-11 -->
+
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
+
+  <script type="text/javascript" charset="utf-8">
+    var rtmpPortTest = (function() {
+      var options;
+
+      return {
+        run: function(el, options, fn) {
+          options = options || {};
+
+          if(typeof(swfobject) == undefined) {
+            throw "SWFObject lib is required!";
+          }
+
+          swfobject.embedSWF('porttest.swf', el, '1', '1', '8.0.0', '', options);
+
+          if(fn && options && options.callback) {
+            window[options.callback] = function(data) {
+
+              if(data == null) {
+                fn("Can't connect to rtmp server.", null);
+              } else {
+                data = data.split(",");
+                fn(null, {protocol: data[0], port: data[1]});
+              }
+            };
+          }
+        }
+      }
+    })();
+
+    $(document).ready(function(){
+      rtmpPortTest.run("porttest", {
+        server: "cp67126.edgefcs.net",
+        app: "ondemand",
+        callback: "portTestDone"
+      }, function(err, obj) {
+        if(err) {
+          alert(err);
+        } else {
+          alert("Success - protocol: "+obj.protocol+" port: "+obj.port);
+        }
+      });
+    });
+  </script>
+
 </head>
 <body>
-	<div id="porttest">Port Tester</div>
+  <div id="porttest">Port Tester</div>
 </body>
 </html>
