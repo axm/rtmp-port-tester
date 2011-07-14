@@ -14,23 +14,23 @@
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
 
-  <script type="text/javascript" charset="utf-8">
+  <script type="text/javascript">
     var rtmpPortTest = (function() {
       var options;
-
+    
       return {
         run: function(el, options, fn) {
           options = options || {};
-
+    
           if(typeof(swfobject) == undefined) {
             throw "SWFObject lib is required!";
           }
-
-          swfobject.embedSWF('porttest.swf', el, '1', '1', '8.0.0', '', options);
-
+    
+          swfobject.embedSWF('porttest.swf', el, '500', '300', '8.0.0', '', options);
+    
           if(fn && options && options.callback) {
             window[options.callback] = function(data) {
-
+    
               if(data == null) {
                 fn("Can't connect to rtmp server.", null);
               } else {
@@ -43,7 +43,7 @@
       }
     })();
 
-    $(document).ready(function(){
+    $(document).ready(function() {
       rtmpPortTest.run("porttest", {
         server: "cp67126.edgefcs.net",
         app: "ondemand",
